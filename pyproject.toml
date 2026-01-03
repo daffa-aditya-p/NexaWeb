@@ -1,0 +1,124 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel", "cython>=3.0", "pybind11>=2.11"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nexaweb"
+version = "1.0.0-alpha.1"
+description = "NexaWeb - Next-Generation Full-Stack Python Framework with C++ Performance Core"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "NexaWeb Team", email = "team@nexaweb.dev"}
+]
+maintainers = [
+    {name = "NexaWeb Core", email = "core@nexaweb.dev"}
+]
+keywords = [
+    "web", "framework", "full-stack", "async", "pyxm", "template",
+    "routing", "orm", "high-performance", "python", "cpp"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: AsyncIO",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C++",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Typing :: Typed",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "uvloop>=0.19.0; sys_platform != 'win32'",
+    "httptools>=0.6.0",
+    "uvicorn>=0.27.0",
+    "websockets>=12.0",
+    "python-multipart>=0.0.6",
+    "pydantic>=2.5.0",
+    "python-dotenv>=1.0.0",
+    "click>=8.1.0",
+    "rich>=13.0.0",
+    "jinja2>=3.1.0",
+    "itsdangerous>=2.1.0",
+    "passlib>=1.7.4",
+    "bcrypt>=4.1.0",
+    "pyjwt>=2.8.0",
+    "aiosqlite>=0.19.0",
+    "asyncpg>=0.29.0",
+    "aiomysql>=0.2.0",
+    "orjson>=3.9.0",
+    "msgspec>=0.18.0",
+    "watchfiles>=0.21.0",
+    "cryptography>=41.0.0",
+    "bleach>=6.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "mypy>=1.7.0",
+    "ruff>=0.1.0",
+    "black>=23.0.0",
+    "pre-commit>=3.5.0",
+]
+full = [
+    "redis>=5.0.0",
+    "celery>=5.3.0",
+    "sqlalchemy>=2.0.0",
+    "alembic>=1.12.0",
+]
+
+[project.scripts]
+nexweb = "nexaweb.cli.main:cli"
+
+[project.entry-points."nexaweb.plugins"]
+# Plugin entry points will be registered here
+
+[project.urls]
+Homepage = "https://nexaweb.dev"
+Documentation = "https://docs.nexaweb.dev"
+Repository = "https://github.com/nexaweb/nexaweb"
+Changelog = "https://github.com/nexaweb/nexaweb/releases"
+
+[tool.setuptools]
+packages = ["nexaweb"]
+package-dir = {"" = "."}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nexaweb*"]
+
+[tool.setuptools.package-data]
+nexaweb = [
+    "cli/templates/**/*",
+    "cli/templates/**/.env.example",
+    "cli/templates/**/.*",
+    "py.typed",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+select = [
+    "E", "W", "F", "I", "B", "C4", "UP", "ARG", "SIM",
+]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
