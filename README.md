@@ -211,13 +211,147 @@ myapp/
 
 ---
 
+## 📤 Publishing to PyPI
+
+Tutorial lengkap untuk upload NexaWeb ke PyPI:
+
+### 1. Persiapan Akun PyPI
+
+```bash
+# 1. Buat akun di https://pypi.org/account/register/
+# 2. Buat API Token di https://pypi.org/manage/account/token/
+#    - Pilih scope "Entire account" (untuk upload pertama)
+#    - Simpan token dengan baik (hanya ditampilkan sekali!)
+```
+
+### 2. Install Build Tools
+
+```bash
+pip install --upgrade pip build twine
+```
+
+### 3. Build Package
+
+```bash
+# Build source distribution dan wheel
+python -m build
+
+# Akan menghasilkan:
+# dist/
+# ├── nexaweb-1.0.0a1-py3-none-any.whl
+# └── nexaweb-1.0.0a1.tar.gz
+```
+
+### 4. Test di TestPyPI (Opsional tapi Disarankan)
+
+```bash
+# Upload ke TestPyPI dulu untuk testing
+twine upload --repository testpypi dist/*
+
+# Username: __token__
+# Password: [paste TestPyPI API token]
+
+# Test install dari TestPyPI
+pip install --index-url https://test.pypi.org/simple/ nexaweb
+```
+
+### 5. Upload ke PyPI (Production)
+
+```bash
+# Upload ke PyPI production
+twine upload dist/*
+
+# Username: __token__
+# Password: [paste PyPI API token]
+```
+
+### 6. Setup `.pypirc` (Opsional)
+
+Buat file `~/.pypirc` agar tidak perlu input token setiap upload:
+
+```ini
+[distutils]
+index-servers =
+    pypi
+    testpypi
+
+[pypi]
+username = __token__
+password = pypi-xxxxxxxxxxxxxxxxxxxx
+
+[testpypi]
+username = __token__
+password = pypi-xxxxxxxxxxxxxxxxxxxx
+```
+
+Lalu upload cukup dengan:
+```bash
+twine upload dist/*
+```
+
+### 7. Verifikasi Upload
+
+```bash
+# Cek di browser
+# https://pypi.org/project/nexaweb/
+
+# Test install
+pip install nexaweb
+
+# Verifikasi
+python -c "import nexaweb; print(nexaweb.__version__)"
+```
+
+### 8. Update Version (untuk rilis berikutnya)
+
+Edit `pyproject.toml`:
+```toml
+[project]
+version = "1.0.0-alpha.2"  # Ubah versi
+```
+
+Lalu ulangi langkah 3-5.
+
+### 📋 Checklist Sebelum Upload
+
+- [ ] Update version di `pyproject.toml`
+- [ ] Update `README.md` jika ada perubahan
+- [ ] Pastikan semua tests pass
+- [ ] Review dependencies di `pyproject.toml`
+- [ ] Hapus folder `dist/` lama: `rm -rf dist/`
+- [ ] Build ulang: `python -m build`
+- [ ] Test di TestPyPI dulu (opsional)
+
+### 🔧 Troubleshooting
+
+**Error: Package already exists**
+```bash
+# Hapus versi lama di dist/ dan build ulang dengan versi baru
+rm -rf dist/ && python -m build
+```
+
+**Error: Invalid API token**
+```bash
+# Pastikan format token benar
+# Username: __token__
+# Password: pypi-xxx... (termasuk prefix "pypi-")
+```
+
+**Error: Missing metadata**
+```bash
+# Pastikan README.md dan pyproject.toml lengkap
+# Verifikasi dengan: twine check dist/*
+```
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md).
 
 ```bash
 # Development setup
-git clone https://github.com/nexaweb/nexaweb.git
+git clone https://github.com/daffa-aditya-p/NexaWeb.git
 cd nexaweb
 pip install -e ".[dev]"
 pytest
