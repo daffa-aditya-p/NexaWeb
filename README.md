@@ -12,16 +12,16 @@ A high-performance, lightweight, full-stack web framework designed to compete wi
 
 ## ✨ Features
 
-- 🏗️ **Full Application Framework** - Not just an API framework, but a complete solution
-- 📝 **PYXM Template Engine** - Custom HTML + Python expression templates
-- ⚡ **Native Async Support** - ASGI-compatible for high concurrency
-- 🔒 **Security-First Design** - Built-in CSRF, XSS protection, rate limiting
-- 🗄️ **Lightweight ORM** - Active Record pattern with query builder
-- 🔐 **Authentication** - JWT tokens, sessions, role-based guards
-- ✅ **Validation System** - 30+ built-in rules with form support
-- 🔌 **Plugin Architecture** - Extensible hooks and extension points
-- 🛠️ **CLI Tools** - Project scaffolding and management
-- 🚀 **Optional C++ Core** - Native extensions for performance-critical code
+- 🏗️ **Full Application Framework** - Not just an API framework, but a complete solution.
+- 📝 **PYXM Template Engine** - Custom HTML + Python expression templates.
+- ⚡ **Native Async Support** - ASGI-compatible for high concurrency.
+- 🔒 **Security-First Design** - Built-in CSRF, XSS protection, rate limiting.
+- 🗄️ **Lightweight ORM** - Active Record pattern with query builder.
+- 🔐 **Authentication** - JWT tokens, sessions, role-based guards.
+- ✅ **Validation System** - 30+ built-in rules with form support.
+- 🔌 **Plugin Architecture** - Extensible hooks and extension points.
+- 🛠️ **CLI Tools** - Project scaffolding and management.
+- 🚀 **Optional C++ Core** - Native extensions for performance-critical code.
 
 ---
 
